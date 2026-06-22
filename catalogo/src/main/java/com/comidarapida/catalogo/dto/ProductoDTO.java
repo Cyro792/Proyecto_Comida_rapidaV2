@@ -5,14 +5,17 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 @Data
+@EqualsAndHashCode(callSuper = false) // Evita advertencias de Lombok al heredar de RepresentationModel
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductoDTO {
+public class ProductoDTO extends RepresentationModel<ProductoDTO> {
 
-    private Long idProducto; // Es vital para que el frontend sepa qué producto es
+    private Long idProducto;
 
     @NotBlank(message = "El nombre del producto es obligatorio")
     private String nombre;
