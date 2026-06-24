@@ -1,0 +1,14 @@
+spring.application.name=ms-pedidos
+server.port=8081
+
+spring.datasource.url=${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/db_pedidos?useSSL=false&serverTimezone=UTC}
+spring.datasource.username=${SPRING_DATASOURCE_USERNAME:root}
+spring.datasource.password=${SPRING_DATASOURCE_PASSWORD:}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+cocina.service.url=${COCINA_SERVICE_URL:http://localhost:8082}
+catalogo.service.url=${CATALOGO_SERVICE_URL:http://localhost:8083}
