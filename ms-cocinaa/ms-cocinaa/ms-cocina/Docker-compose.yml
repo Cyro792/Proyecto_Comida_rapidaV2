@@ -1,0 +1,35 @@
+version: '3.8'
+
+networks:
+  restaurante-network:
+    driver: bridge
+
+services:
+
+  db-cocina:
+    image: mysql:8.0
+    container_name: db-cocina
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: db_cocina
+    networks:
+      - restaurante-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  ms-cocina:
+    build: .
+    container_name: ms-cocina
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db-cocina:3306/db_cocina?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+    ports:
+      - "8082:8082"
+    depends_on:
+      db-cocina:
+        condition: service_healthy
+    networks:
+      - restaurante-network
